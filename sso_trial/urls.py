@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 
-from initiatives.factories import create_initiative_view
+from initiatives.factories import InitiativeViewFactory
 from .views import ViewWrapper
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('initiatives/', ViewWrapper.as_view(view_creator_func= create_initiative_view), name= 'initiatives'),
-    path('initiatives/<int:init_id>/', ViewWrapper.as_view(view_creator_func = create_initiative_view), name='initiative'),
+    path('initiatives/', ViewWrapper.as_view(view_factory = InitiativeViewFactory), name= 'initiatives'),
+    path('initiatives/<int:init_id>/', ViewWrapper.as_view(view_factory = InitiativeViewFactory), name='initiative'),
     
 ]
