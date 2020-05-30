@@ -18,11 +18,14 @@ from django.urls import path
 from django.conf import settings
 
 from initiatives.factories import InitiativeViewFactory
+from news.factories import NewsViewFactory, AllNewsViewFactory
 from .views import ViewWrapper
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('initiatives/', ViewWrapper.as_view(view_factory = InitiativeViewFactory), name= 'initiatives'),
     path('initiatives/<int:init_id>/', ViewWrapper.as_view(view_factory = InitiativeViewFactory), name='initiative'),
-    
+    path('news/<int:id>/', ViewWrapper.as_view(view_factory = NewsViewFactory), name ='news'),  
+    path('news/', ViewWrapper.as_view(view_factory = AllNewsViewFactory), name ='news'),
+     
 ]

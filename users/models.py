@@ -43,7 +43,7 @@ class ORMUser(models.Model):
     email_verified = models.BooleanField()
     role = models.OneToOneField(Role,on_delete=models.CASCADE)
     disable_account = models.BooleanField()
-    department = models.OneToOneField(Department,on_delete=models.CASCADE)
+    department = models.ForeignKey(Department,on_delete=models.CASCADE)
     skill = models.ManyToManyField(Skill)
     user_image = models.ImageField(upload_to=None)
     username = models.CharField(max_length=100)
