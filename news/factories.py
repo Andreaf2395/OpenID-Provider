@@ -1,8 +1,8 @@
 """factories represents dependency injections. They connect repositeries to interactors  """
 
 from .repositeries import NewsRepo
-from .interactors import GetAllNewsInteractor, GetNewsInteractor, CreateNewNewsInteractor, UpdateExistingNewsInteractor, DeleteExistingNewsInteractor
-from .views import NewsView, AllNewsView
+from .interactors import GetAllNewsInteractor, GetNewsInteractor, CreateNewNewsInteractor, UpdateExistingNewsInteractor, DeleteExistingNewsInteractor, GetAllNewsByTagInteractor
+from .views import NewsView, AllNewsView, AllNewsByTagView
 
 class NewsRepoFactory(object):
     @staticmethod
@@ -39,6 +39,12 @@ class DeleteExistingNewsInteractorFactory(object):
         news_repo = NewsRepoFactory.get()
         return DeleteExistingNewsInteractor(news_repo)
 
+class GetAllNewsByTagInteractorFactory(object):
+    @staticmethod
+    def get():
+        news_repo = NewsRepoFactory.get()
+        return GetAllNewsByTagInteractor(news_repo)
+
 
 class NewsViewFactory(object):
     @staticmethod
@@ -50,3 +56,8 @@ class AllNewsViewFactory(object):
     @staticmethod
     def create(request, **kwargs):
         return AllNewsView(GetAllNewsInteractorFactory.get(), CreateNewNewsInteractorFactory.get())
+
+class AllNewsByTagViewFactory(object):
+    @staticmethod
+    def create(request, **kwargs):
+        return AllNewsByTagView(GetAllNewsByTagInteractorFactory.get())

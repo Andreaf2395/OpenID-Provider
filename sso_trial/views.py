@@ -24,7 +24,7 @@ class ViewWrapper(View):
         data = dict(urllib.parse.parse_qsl(request.body.decode("utf-8"), keep_blank_values=True))
         
         kwargs.update(data)
-        body, status = self.view_factory.create(request).patch(**kwargs)
+        body, status = self.view_factory.create(request, **kwargs).patch(**kwargs)
         return HttpResponse(json.dumps(body, cls=DjangoJSONEncoder), status = status, content_type = 'application/json')
 
     def delete(self, request, *args, **kwargs):

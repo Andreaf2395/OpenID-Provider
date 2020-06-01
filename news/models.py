@@ -15,9 +15,9 @@ class ORMNews(models.Model):
 
     news_title = models.CharField(max_length=500)
     news_content = models.TextField()
-    
     visible = models.BooleanField(default=True)
     audience = models.ManyToManyField(ORMAudience, default = 'G')
+    tags = models.CharField(max_length=500)
     publish_date =  models.DateTimeField(auto_now_add=True)
 
     class Meta:

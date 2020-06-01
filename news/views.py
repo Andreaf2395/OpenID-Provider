@@ -1,6 +1,7 @@
 """These classes get interactors from factories.py, parse the input parameters and format the output with serializers"""
 
 from django.shortcuts import render
+import ast
 
 from . serializers import MultipleNewsSerializer, NewsSerializer
 
@@ -17,9 +18,9 @@ class AllNewsView(object):
 
         return body,status
 
-    def post(self, news_title , news_content, visible = True, audience = [] ):
+    def post(self, news_title , news_content, tags, visible = True, audience = [] ):
        
-        news = self.create_new_news_interactor.set_params(news_title = news_title, news_content = news_content, visible = visible, audience=audience).execute()
+        news = self.create_new_news_interactor.set_params(news_title = news_title, news_content = news_content, visible = visible, audience=audience, tags=tags).execute()
         body = NewsSerializer.serialize(news)
         status = 201
 
@@ -43,9 +44,10 @@ class NewsView(object):
         return body,status
 
    
-    def patch(self, id, news_title , news_content, visible = True, audience = []):
+    def patch(self, id, news_title = None , news_content = None, visible = None, tags = None, audience = None):
+        audience_list =  ast.literal_eval(audience)
        
-        news = self.update_existing_news_interactor.set_params(id = id, news_title= news_title, news_content= news_content, visible = visible, audience= audience).execute()
+        news = self.update_existing_news_interactor.set_params(id = id, news_title= news_title, news_content= news_content, visible = visible, audience= audience_list , tags=tags).execute()
 
         body = NewsSerializer.serialize(news)
         status = 200
@@ -60,3 +62,17 @@ class NewsView(object):
         status = 204
 
         return body,status
+
+class AllNewsByTagView(object):
+    def __init__(self, get_all_news_by_tag_interactor = None):
+        self.get_all_news_by_tag_interactor = get_all_news_by_tag_interactor
+        
+
+    def get(self, tag):
+        news = self.get_all_news_by_tag_interactor.set_params(tag = tag).execute()
+
+        body = MultipleNewsSerializer.serialize(news)
+        status = 200
+
+        return body,status
+
