@@ -16,9 +16,7 @@ class InvalidEntityException(SsoException):
 
 class EntityDoesNotExistException(SsoException):
     pass
-    # def __init__(self):
-    #     super().__init__(source = 'entity', code = 'not_found', message = 'Entity Not Found')
-
+   
 class NoLoggedException(SsoException):
     def __init__(self):
         super().__init__(source= 'authentication', code= 'required', message='Authentication Required')

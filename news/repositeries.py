@@ -84,5 +84,3 @@ class NewsRepo:
         for db_news in all_db_news:
             news.append(self._decode_db_news(db_news))
         return news
-
-   

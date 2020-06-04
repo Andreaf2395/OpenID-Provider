@@ -8,3 +8,4 @@ class SsoExceptionSerializer:
                 'message': str (exception),
             }
         }
+

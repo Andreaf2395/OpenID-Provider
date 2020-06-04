@@ -7,7 +7,6 @@ exception_status_code_mapper = {
     NoLoggedException: 401,
     NoPermissionException: 403,
     InvalidEntityException: 422,
-
 }
 
 def serialize_exceptions(func):
