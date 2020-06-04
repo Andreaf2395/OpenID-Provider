@@ -1,5 +1,6 @@
 from .entities import News, Audience
 from . models import ORMNews, ORMAudience
+from sso_trial.exceptions import EntityDoesNotExistException, InternalServerException
 
 class NewsRepo:
 
@@ -24,29 +25,53 @@ class NewsRepo:
         return news
 
     def get_news(self, id):
-        db_news = ORMNews.objects.get(id = id)
-        return self._decode_db_news(db_news)
+        try:
+            db_news = ORMNews.objects.get(id = id)
+            return self._decode_db_news(db_news)
+        except ORMNews.DoesNotExist:
+            raise EntityDoesNotExistException(source='news', code='not found', message='News not found')
+        except Exception:
+            raise InternalServerException()
 
     def create_new_news(self, news_title, news_content, tags, visible = True, audience = []):
         db_news = ORMNews.objects.create(news_title = news_title, news_content = news_content, visible = visible, tags = tags)
         for a in audience:
-            db_news.audience.add(a)
-        return self._decode_db_news (db_news)
+            try:
+                orm_aud = ORMAudience.objects.filter(audience_type = a.upper())[0]
+            except IndexError:
+                raise EntityDoesNotExistException(source='audience', code='not found', message='Enter proper audience')
+            else:
+                db_news.audience.add(orm_aud)
+                db_news.save()
+    
+        return self._decode_db_news (db_news)    
 
+           
+
+    
     def update_existing_news(self,news):
-        orm_news = ORMNews.objects.get(id = news.id)
-        orm_news.audience.clear()
+        try:
+            orm_news = ORMNews.objects.get(id = news.id)
+            orm_news.audience.clear()
 
-        orm_news.news_title = news.news_title
-        orm_news.news_content = news.news_content
-        orm_news.visible = news.visible
-        orm_news.tags = news.tags
-        for a in news.audience:
-            orm_aud = ORMAudience.objects.filter(audience_type = a.audience_type)[0]
-            orm_news.audience.add(orm_aud)
-        orm_news.save()
+            orm_news.news_title = news.news_title
+            orm_news.news_content = news.news_content
+            orm_news.visible = news.visible
+            orm_news.tags = news.tags
+            for a in news.audience:
+                try:
+                    orm_aud = ORMAudience.objects.filter(audience_type = a.audience_type)[0]
+                except IndexError:
+                    raise EntityDoesNotExistException(source='audience', code='not found', message='Enter proper audience')
+                
+                orm_news.audience.add(orm_aud)
+            orm_news.save()
 
-        return self._decode_db_news (orm_news)
+            return self._decode_db_news (orm_news)
+        except ORMNews.DoesNotExist:
+            raise EntityDoesNotExistException(source='news', code='not found', message='News not found')
+        except Exception:
+            raise InternalServerException()
 
     def delete_existing_news(self, id):
         orm_news = ORMNews.objects.get(id = id)
