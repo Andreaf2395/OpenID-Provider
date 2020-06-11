@@ -25,7 +25,7 @@ SECRET_KEY = 'u*wm66br@k6v06otcz#z*rbut+8m_g2dsd&q46jyi+27*toexb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.2']
+ALLOWED_HOSTS = ['127.0.0.2','test']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'eyrc_client',
+
 
 ]
 
@@ -123,10 +124,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 os.environ["AUTHLIB_INSECURE_TRANSPORT"] ="1"
+SESSION_COOKIE_NAME = "client1"
 AUTHLIB_OAUTH_CLIENTS = {
     'eyantra': {
-        'client_id': 'uhmJq6xjFhS9Bu28PILsl4E7',
-        'client_secret': 'fQvwLfGSHO7uafaJpySK0TGCRcCWD2HPw6MIaWTVVNPuNqnv',
 
+    'client_id' : 'uhmJq6xjFhS9Bu28PILsl4E7',
+    'client_secret' : 'fQvwLfGSHO7uafaJpySK0TGCRcCWD2HPw6MIaWTVVNPuNqnv'
     }
 }
