@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login </title>
+    <link rel="stylesheet" href="{% static 'bootstrap\css\bootstrap.css' %}">
+    <link rel="stylesheet" href="{%  static 'bootstrap\css\bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{%  static 'bootstrap\css\bootstrap-grid.css' %}">
+    <link rel="stylesheet" href="{%  static 'bootstrap\css\bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{%  static 'bootstrap\css\bootstrap-reboot.css' %}">
+    <link rel="stylesheet" href="{%  static 'bootstrap\css\bootstrap-reboot.min.css' %}">
+    <link rel="stylesheet" href="{%  static 'bootstrap\css\bootstrap-social.css' %}">
+    <link rel="stylesheet" href="{%  static 'style.css' %}">
+</head>
+<body>
+    <!-- main container-->
+    <div class="container-fluid">
+      <!-- main row  -->
+        <div class="row">
+          <!-- first column -->
+          <div class="col">
+            <!-- left half row 1 logo -->
+            <div class="row"> 
+              <img src="{% static  'images/small_e_logo.png' %}" alt="hi">
+              <img src="{% static 'images/eYantra_logo.png' %}" alt="e-yantra" >
+            </div>
+            <!-- row 1 end -->
+            <!-- left half form row 2-->
+            <div class="row">
+              <div class="col">
+                <main>
+                    {% block local %}
+
+                    {% endblock %}
+                </main>
+              </div>
+            </div>
+            <!-- row 2 end -->
+
+            <!-- left half row 3 OR -->
+            <div class="hl row">
+                {% block or%}
+
+                {% endblock%}
+            </div>
+            <!-- row 3 end -->
+
+            <!-- left half row 4 social login -->
+            <div class="row">
+                {% block social %}
+
+                {% endblock %}
+            </div>
+            <!-- row 4 end -->  
+          </div>
+          <!-- first col end -->
+
+          <!-- second col half back ground -->
+          <div class="col side-logo">
+            Big E and purple back
+            <img src={% static 'images/eYantra_logo.png' %}" alt="hello">
+          </div>
+        </div>
+      <!-- main row end -->
+    </div>
+  <!-- main container end -->
+
+
+
+  <script src="styles\bootstrap\js\jquery-3.2.1.min.js"></script>
+  <script src="styles\bootstrap\js\bootstrap.bundle.js"></script>
+  <script src="styles\bootstrap\js\bootstrap.bundle.min.js"></script>
+  <script src="styles\bootstrap\js\bootstrap.js"></script>
+  <script src="styles\bootstrap\js\bootstrap.min.js"></script>
+  
+</body>
+</html>

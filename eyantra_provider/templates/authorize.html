@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    Hi !<h2>{{ user }}<br>
+        {{grant.client.client_name}} is requesting:
+<strong>{{ grant.request.scope }}</strong>
+</h2>
+
+<form action="" method="post">
+{% csrf_token %}
+  <label>
+    <input type="checkbox" name="confirm">
+    <span>Consent?</span>
+  </label>
+  {% if not user %}
+  <p>You haven't logged in. Log in with:</p>
+  <div>
+    <input type="text" name="username">
+  </div>
+  {% endif %}
+  <br>
+  <button>Submit</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if user %}
+  <style>pre{white-space:wrap}</style>
+<div>Logged in as <strong>{{user}}</strong></div>
+
+{% for client in clients %}
+<pre>
+<h3>Client Name:</h3><i>{{ client.client_name}}</i>
+    <h3>Client id:</h3><i>{{ client.client_id }}</i>
+</pre>
+<hr>
+{% endfor %}
+
+<br><a href="{% url "create_client" %}">Create Client</a>
+
+{% else %}
+<form action="" method="post">
+{% csrf_token %}
+  <input type="text" name="username" placeholder="username">
+  <button type="submit">Login / Signup</button>
+</form>
+{% endif %}
+</body>
+</html>

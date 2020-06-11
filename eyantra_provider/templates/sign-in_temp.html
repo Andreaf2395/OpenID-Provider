@@ -1,0 +1,39 @@
+{% extends 'base1.html'%}
+{ % block title %} Login
+
+{% block local %}
+<form action="{% url 'oauth_login' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+      <h2>Hello e-Yantrik</h2>
+    </div>
+    <div class="row">
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required>
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="enter your password here" required>
+
+      <input type="submit" value="Sign in">
+    </div>
+</form>
+
+{%endblock%}
+
+{% block or%}
+<span class="hl inner">OR</span>
+{%endblock%}
+
+{% block social%}
+
+<a href="#" class="btn btn-block btn-social btn-google">
+    <span class="fa fa-google"></span> Login with Google
+</a>
+<a href="#" class="btn btn-block btn-social btn-linkedin">
+    <span class="fa fa-linedin"></span> Login with LinkedIn
+</a>
+<a href="#" class="btn btn-block btn-social btn-github">
+    <span class="fa fa-github"></span> Login with GitHub
+</a>
+
+{%endblock%}
