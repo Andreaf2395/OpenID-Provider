@@ -3,6 +3,7 @@ from authlib.common.encoding import json_loads, json_dumps
 from authlib.oauth2.rfc6749 import ClientMixin
 from authlib.oauth2.rfc6749.util import scope_to_list, list_to_scope
 from django.db import models
+
 class OAuth2ClientMixin(ClientMixin):
     client_id = models.CharField(max_length=48,db_index=True)
     client_secret = models.CharField(max_length=120)
@@ -40,7 +41,7 @@ class OAuth2ClientMixin(ClientMixin):
     def token_endpoint_auth_method(self):
         return self.client_metadata.get(
             'token_endpoint_auth_method',
-            'client_secret_basic'
+            'client_secret_post'
         )
 
     @property

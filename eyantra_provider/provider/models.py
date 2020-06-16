@@ -79,13 +79,14 @@ class OAuth2Client( models.Model , ClientMixin):
 
     def check_grant_type(self, grant_type):
         print('grant type:',grant_type)
-        allowed = self.grant_type.split()
-        print('allowed grant type:',allowed)
+        allowed = self.grant_type
+        print('DB grant type:',allowed)
         if grant_type in allowed:
             print('yes grant type is in allowed')
         else:
-            print('yes grant type is in allowed')
+            print('grant type is not allowed')
         return grant_type in allowed
+
 def now_timestamp():
     return int(time.time())
 
@@ -110,6 +111,10 @@ class AuthorizationCode(models.Model, AuthorizationCodeMixin):
 
     def get_auth_time(self):
         return self.auth_time
+
+    def get_nonce(self):
+        return self.nonce;    
+  
 
 class OAuth2Token(models.Model, TokenMixin):
     user = models.ForeignKey(User, on_delete=CASCADE)

@@ -114,7 +114,7 @@ def login(request):
             auth.login(request, user)
 
             print('finally going ...')
-            return redirect('oauth_authorize')
+            return redirect('')
         else:
 
             return redirect(request,'oauth_login')
@@ -126,7 +126,9 @@ def login(request):
 @csrf_exempt
 @require_http_methods(["POST"])  # we only allow POST for token endpoint
 def issue_token(request):
-    print('inside issue token')
+    print('inside issue token2')
+    print(request.headers)
+    print(request.body)
     val = server.create_token_response(request)
     print('token resp:',val)
     return val

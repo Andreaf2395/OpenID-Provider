@@ -22,13 +22,14 @@ class OpenIDCode(OpenIDCode):
     def get_jwt_config(self, grant):
         return {
             'key': 'secret-key',
+            # 'key': read_private_key_file(key_path)
             'alg': 'HS256',
             'iss': 'https://example.com',
             'exp': 3600
         }
 
     def generate_user_info(self, user, scope):
-        user_info = UserInfo(sub=str(user.pk), name=user.name)
+        user_info = UserInfo(sub=str(user.pk), name=user.username)
         if 'email' in scope:
             user_info['email'] = user.email
         return user_info
@@ -107,6 +108,17 @@ require_oauth = ResourceProtector()
 server.register_grant(AuthorizationCodeGrant, [OpenIDCode(require_nonce=True)])
 server.register_endpoint(RevocationEndpoint)
 require_oauth.register_token_validator(BearerTokenValidator(OAuth2Token))
+
+
+
+
+@require_oauth('profile')
+def user_profile(request):
+    user = request.oauth_token.user
+    return JsonResponse(dict(sub=user.pk, username=user.username))
+
+
+
 #config oauth
 def config_oauth(app):
     server.init_app(app)

@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'eyantra_provider',
         'USER':'root',
-        'PASSWORD': '',
+        'PASSWORD': '1234',
         'HOST': '',
         'PORT': '',
         'OPTIONS': {
@@ -134,3 +134,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 os.environ["AUTHLIB_INSECURE_TRANSPORT"]="1"
 SESSION_COOKIE_NAME = "eyantraprovider"
+
