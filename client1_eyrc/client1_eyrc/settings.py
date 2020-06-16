@@ -127,7 +127,6 @@ os.environ["AUTHLIB_INSECURE_TRANSPORT"] ="1"
 SESSION_COOKIE_NAME = "client1"
 AUTHLIB_OAUTH_CLIENTS = {
     'eyantra': {
-
     'client_id' : 'uhmJq6xjFhS9Bu28PILsl4E7',
     'client_secret' : 'fQvwLfGSHO7uafaJpySK0TGCRcCWD2HPw6MIaWTVVNPuNqnv'
     }

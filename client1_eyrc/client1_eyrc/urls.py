@@ -19,7 +19,7 @@ from eyrc_client import views
 urlpatterns = [
     path('',views.home,name='home'),
     path('login/',views.login,name='login'),
-    #path('callback/',views.callback,name='callback'),
+    # path('callback/',views.callback,name='callback'),
     path('authorize/',views.auth,name='authorize'),
     path('logout/',views.logout,name='logout'),
     path('admin/', admin.site.urls),
