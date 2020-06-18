@@ -13,6 +13,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 
+
+
 def current_user(request):
     if 'id' in request.session:
         uid = request.session['id']
@@ -75,7 +77,7 @@ def create_client(request):
 
 
 def authorize(request):
-
+    
     user = request.user
     print('user:',user)
     if not user or request.user.is_anonymous:

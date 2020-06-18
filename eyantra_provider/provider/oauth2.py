@@ -9,6 +9,14 @@ from authlib.integrations.django_oauth2 import RevocationEndpoint
 from django.contrib.auth.models import User
 from authlib.oidc.core import UserInfo
 
+
+def read_file(filename):
+    with open(filename) as f:
+        read_data = f.read()
+    print('in read_file')  
+    return read_data    
+
+
 class OpenIDCode(OpenIDCode):
     def exists_nonce(self, nonce, request):
         try:
@@ -18,13 +26,14 @@ class OpenIDCode(OpenIDCode):
             return True
         except AuthorizationCode.DoesNotExist:
             return False
+            
 
     def get_jwt_config(self, grant):
         return {
-            'key': 'secret-key',
-            # 'key': read_private_key_file(key_path)
-            'alg': 'HS256',
-            'iss': 'https://example.com',
+            # 'key': 'secret-key',
+            'key':  read_file('rsakey'),
+            'alg': 'RS256',
+            'iss': 'https://127.0.0.1:8000',
             'exp': 3600
         }
 
